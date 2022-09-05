@@ -49,7 +49,7 @@ db.connect();
 //tự động tạo account cho admin
 auto_create_admin.auto_create()
 
-port = process.env.PORT || 3000
+port = process.env.PORT || 4000
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`)

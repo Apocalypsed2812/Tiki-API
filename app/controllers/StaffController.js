@@ -75,6 +75,26 @@ class StaffController {
             return res.json({code: 3, message: e.message})
         })
     }
+	
+	async getProductList(req, res){
+		const {quantityProduct} = req.params
+		let product = await Product.find({}).limit(quantityProduct).lean()
+		console.log(product)
+		if(!product){
+			return res.json({code: 1, message: 'Có lỗi xảy ra'})
+		}
+		return res.json({code: 0, message: 'Lấy danh sách sản phẩm thành công', data: product})
+	}
+	
+	async getProduct(req, res){
+		const {id} = req.params
+		let product = await Product.find({_id:id}).lean()
+		console.log(product)
+		if(!product){
+			return res.json({code: 1, message: 'Có lỗi xảy ra'})
+		}
+		return res.json({code: 0, message: 'Lấy danh sách sản phẩm thành công', data: product})
+	}
 
     addProduct(req, res){
         const form = new multiparty.Form()

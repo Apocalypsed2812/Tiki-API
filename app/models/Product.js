@@ -18,3 +18,5 @@ const Product = new Schema({
 );
 
 module.exports = mongoose.model('Product', Product);
+
+//https://salt.tikicdn.com/cache/280x280/ts/product/56/59/a8/691ae75c6977bb7342092f1c2593096b.jpg
