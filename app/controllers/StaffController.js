@@ -79,7 +79,6 @@ class StaffController {
 	async getProductList(req, res){
 		const {quantityProduct} = req.params
 		let product = await Product.find({}).limit(quantityProduct).lean()
-		console.log(product)
 		if(!product){
 			return res.json({code: 1, message: 'Có lỗi xảy ra'})
 		}
@@ -87,13 +86,21 @@ class StaffController {
 	}
 	
 	async getProduct(req, res){
-		const {id} = req.params
+		const {id, quantityProduct} = req.params
 		let product = await Product.find({_id:id}).lean()
-		console.log(product)
+		let category = product[0].category
+		let productListInvolve = await Product.find({category}).limit(quantityProduct).lean()
 		if(!product){
 			return res.json({code: 1, message: 'Có lỗi xảy ra'})
 		}
-		return res.json({code: 0, message: 'Lấy danh sách sản phẩm thành công', data: product})
+		return res.json({code: 0, message: 'Lấy danh sách sản phẩm thành công', data: product, productListInvolve})
+	}
+	
+	async addQuantityProduct(req, res){
+		const {id} = req.params
+		let product = await Product.find({_id:id}).lean()
+		let quantity = product[0].quantity + 1
+		return res.json({code: 0, message: 'Thêm số lượng thành công', data: quantity})
 	}
 
     addProduct(req, res){
